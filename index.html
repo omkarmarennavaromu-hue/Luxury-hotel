@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elite Luxury</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+background: radial-gradient(circle at top, #111, #000);
+color:white;
+scroll-behavior:smooth;
+overflow-x:hidden;
+}
+
+/* NAV */
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+padding:20px 40px;
+background: rgba(255,255,255,0.05);
+backdrop-filter: blur(15px);
+z-index:1000;
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+nav h1{
+background:linear-gradient(45deg,#ff4d4d,#ff9966);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+nav ul{
+display:flex;
+gap:25px;
+list-style:none;
+}
+
+nav li{
+cursor:pointer;
+transition:0.3s;
+}
+
+nav li:hover{
+color:#ff9966;
+}
+
+/* HERO */
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+flex-direction:column;
+}
+
+.hero h1{
+font-size:3.5rem;
+background:linear-gradient(45deg,#fff,#aaa);
+-webkit-background-clip:text;
+color:transparent;
+animation:fadeUp 1.5s ease;
+}
+
+.hero p{
+margin-top:10px;
+opacity:0.7;
+animation:fadeUp 2s ease;
+}
+
+/* FADE ANIMATION */
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(40px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* SECTION */
+section{
+padding:120px 20px;
+text-align:center;
+opacity:0;
+transform:translateY(60px);
+transition:1s;
+}
+
+section.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* GRID */
+.grid{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:25px;
+}
+
+/* GLASS CARD */
+.card{
+width:280px;
+padding:20px;
+border-radius:20px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,0.1);
+transition:0.4s;
+transform-style:preserve-3d;
+}
+
+.card:hover{
+transform:rotateY(10deg) rotateX(10deg) scale(1.05);
+box-shadow:0 20px 40px rgba(255,100,100,0.3);
+}
+
+/* IMAGE */
+.card img{
+width:100%;
+border-radius:15px;
+margin-bottom:10px;
+}
+
+/* BUTTON */
+button{
+padding:12px 18px;
+border:none;
+border-radius:10px;
+background:linear-gradient(45deg,#ff4d4d,#ff9966);
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+box-shadow:0 0 20px #ff4d4d;
+}
+
+/* CALL BOX */
+.call-box{
+padding:30px;
+border-radius:20px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(20px);
+}
+
+.status{
+margin-top:10px;
+white-space:pre-line;
+opacity:0.8;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+.grid{flex-direction:column;}
+.hero h1{font-size:2.2rem;}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<h1>Elite</h1>
+<ul>
+<li onclick="go('rooms')">Rooms</li>
+<li onclick="go('booking')">Booking</li>
+<li onclick="go('prices')">Prices</li>
+<li onclick="go('location')">Location</li>
+<li onclick="go('call')">AI</li>
+</ul>
+</nav>
+
+<div class="hero">
+<h1>Luxury Redefined</h1>
+<p>Experience premium dining & smart booking</p>
+</div>
+
+<section id="rooms">
+<h2>Luxury Rooms</h2>
+<div class="grid">
+<div class="card">
+<img src="https://images.unsplash.com/photo-1566073771259-6a8506099945">
+<h3>Deluxe Room</h3>
+<p>Available</p>
+</div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa">
+<h3>VIP Lounge</h3>
+<p>Available</p>
+</div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b">
+<h3>Private Dining</h3>
+<p>Limited</p>
+</div>
+</div>
+</section>
+
+<section id="booking">
+<h2>Book Now</h2>
+<div class="card">
+<input id="name" placeholder="Your Name"><br><br>
+<input id="date" placeholder="Date"><br><br>
+<button onclick="book()">Confirm Booking</button>
+<p id="bookStatus"></p>
+</div>
+</section>
+
+<section id="prices">
+<h2>Pricing</h2>
+<div class="grid">
+<div class="card"><h3>Basic</h3><p>₹999</p></div>
+<div class="card"><h3>Premium</h3><p>₹1999</p></div>
+<div class="card"><h3>Luxury</h3><p>₹3999</p></div>
+</div>
+</section>
+
+<section id="location">
+<h2>Location</h2>
+<div class="card">Bangalore City Center</div>
+</section>
+
+<section id="call">
+<h2>AI Assistant</h2>
+<div class="call-box">
+<button onclick="startAI()">Talk Now</button>
+<div class="status" id="status">Click and speak</div>
+</div>
+</section>
+
+<script>
+function go(id){
+document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+
+/* SCROLL */
+const sections=document.querySelectorAll("section");
+window.addEventListener("scroll",()=>{
+sections.forEach(sec=>{
+if(sec.getBoundingClientRect().top<window.innerHeight-100){
+sec.classList.add("show");
+}
+});
+});
+
+/* BOOKING */
+function book(){
+let name=document.getElementById("name").value;
+let date=document.getElementById("date").value;
+
+if(name&&date){
+document.getElementById("bookStatus").innerText=
+"Booking confirmed for "+name+" on "+date;
+}else{
+document.getElementById("bookStatus").innerText="Fill all fields";
+}
+}
+
+/* VOICE AI */
+function startAI(){
+const status=document.getElementById("status");
+
+const recognition=new(window.SpeechRecognition||window.webkitSpeechRecognition)();
+recognition.start();
+
+status.innerText="Listening...";
+
+recognition.onresult=function(event){
+let text=event.results[0][0].transcript.toLowerCase();
+let reply=getReply(text);
+
+status.innerText="You: "+text+"\nAI: "+reply;
+
+let speech=new SpeechSynthesisUtterance(reply);
+speechSynthesis.speak(speech);
+}
+}
+
+/* LOGIC */
+function getReply(text){
+
+if(text.includes("book"))
+return "You can book using the booking section.";
+
+if(text.includes("room"))
+return "We have deluxe, VIP and private rooms.";
+
+if(text.includes("price"))
+return "Prices range from 999 to 3999 rupees.";
+
+if(text.includes("location"))
+return "We are in Bangalore city center.";
+
+if(text.includes("food"))
+return "We serve premium multi cuisine dishes.";
+
+return "Ask about booking, rooms, prices or food.";
+}
+</script>
+
+</body>
+</html>
